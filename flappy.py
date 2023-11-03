@@ -63,8 +63,12 @@ def update_score(score, high_score):
     return high_score
 
 def save_high_score(high_score):
-    with open("high_score.txt", "w") as file:
-        file.write(str(high_score))
+    try:
+        with open("high_score.txt", "w") as file:
+            file.write(str(high_score))
+    except IOError as e:
+        print(f"Error saving high score: {e}")
+
 
 def load_high_score():
     if os.path.isfile("high_score.txt"):
@@ -192,4 +196,10 @@ while True:
                 sys.exit()
 
     pygame.display.update()
-    clock.tick(120)
+
+    # Add error handling to catch any exceptions
+    try:
+        clock.tick(120)
+    except Exception as e:
+        print(f"An error occurred: {e}")
+
